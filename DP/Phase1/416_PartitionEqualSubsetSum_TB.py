@@ -1,35 +1,21 @@
-from functools import lru_cache
-
 class Solution:
     def canPartition(self, nums: List[int]) -> bool:
-
-        if sum(nums)%2 != 0:
+        
+        if sum(nums)%2!=0:
             return False
-        
-        targetSum = sum(nums)//2
 
-        num_cols = targetSum+1
-        num_rows = len(nums)
+        half_sum = sum(nums)//2
+        table = [ [ False for i in range(half_sum+1) ] for _ in range(len(nums))]
 
-        # Constructing Table
-        table = [ [False for _ in range(0,num_cols)] for _ in range(num_rows) ]
-        
-        # Setting up first row
-        table[0][0] = True
-        if nums[0] <= targetSum:
-            table[0][ nums[0] ] = True
+        for i in range(len(nums)):
+            table[i][0] = True
 
-        # Filling the table
-        for i in range(1, num_rows):
+        for i in range(len(nums)):
+            for j in range(half_sum+1):
 
-            for j in range(0, num_cols):
-
-                # If upper is True make it True
-                if table[i-1][j] == True:
-                    table[i][j] = True
-
-                if j >= nums[i]:
-                    if table[i-1][j - nums[i]] == True:
-                        table[i][j] = True
+                if (j - nums[i])<0:
+                    table[i][j] = table[i-1][j]
+                else:
+                    table[i][j] = table[i-1][j-nums[i]] or table[i-1][j]
 
         return table[-1][-1]
