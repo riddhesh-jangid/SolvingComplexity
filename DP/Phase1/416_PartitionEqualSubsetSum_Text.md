@@ -8,7 +8,7 @@ Tabulation vs Top-Down
 2. Making the recursion (making the choice)
 	In top-down it's choices like include or exclude
 	
-	In tabulation, it's same again as we are taking or operation between as in either take previous (exclude) or previous + element (include)
+	In tabulation, it's same again as we are taking 'or' operation between as in either take previous (exclude) or previous + element (include)
 
 How we are building results from previous result?
 1. If the element is greater than the sum itself -> take just above result
